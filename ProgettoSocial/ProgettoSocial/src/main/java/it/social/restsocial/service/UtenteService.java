@@ -15,6 +15,7 @@ import it.social.restsocial.entity.Utente;
 import it.social.restsocial.mapper.DtoMapper;
 import it.social.restsocial.repository.RuoloRepository;
 import it.social.restsocial.repository.UtenteRepository;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,19 +39,6 @@ public class UtenteService {
     /** Aggiorna utente. */
     @Transactional
     public UtenteDto update(UtenteFormDto form) {
-        if (form.getId() == null) throw new RuntimeException("Id utente obbligatorio per update");
-        Utente u = repo.findById(form.getId())
-                .orElseThrow(() -> new RuntimeException("Utente non trovato"));
-        apply(u, form, false);
-        return DtoMapper.toUtenteDto(repo.save(u)); // Ruolo light
-    }
-    /** Aggiorna Profilo Utente. */
-    @Transactional
-    public UtenteDto updateProfile(UtenteFormDto form) {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        Utente ut = repo.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Utente corrente non trovato"));
-		if (ut.getId() != form.getId()) throw new RuntimeException("L'utente non è il proprietario dell'account");
         if (form.getId() == null) throw new RuntimeException("Id utente obbligatorio per update");
         Utente u = repo.findById(form.getId())
                 .orElseThrow(() -> new RuntimeException("Utente non trovato"));
@@ -99,6 +87,67 @@ public class UtenteService {
                 .orElseThrow(() -> new RuntimeException("Utente corrente non trovato"));
         return DtoMapper.toUtenteDto(u);
     }
+    /** Aggiorna Profilo Utente Admin. */
+    @Transactional
+    public UtenteDto updateProfile(UtenteFormDto form) {
+    	String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    	Utente ut = repo.findByEmail(email)
+    			.orElseThrow(() -> new RuntimeException("Utente corrente non trovato"));
+    	if (ut.getId() != form.getId()) throw new RuntimeException("L'utente non è il proprietario dell'account");
+    	if (form.getId() == null) throw new RuntimeException("Id utente obbligatorio per update");
+    	Utente u = repo.findById(form.getId())
+    			.orElseThrow(() -> new RuntimeException("Utente non trovato"));
+    	apply(u, form, false);
+    	return DtoMapper.toUtenteDto(repo.save(u)); // Ruolo light
+    }
+    
+    /** Aggiorna Profilo Utente user. */
+    @Transactional
+    public UtenteDto updateMyProfile(UtenteFormDto form) {
+    	String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    	Utente ut = repo.findByEmail(email)
+    			.orElseThrow(() -> new RuntimeException("Utente corrente non trovato"));
+    	if (ut.getId() != form.getId()) throw new RuntimeException("L'utente non è il proprietario dell'account");
+    	if (form.getId() == null) throw new RuntimeException("Id utente obbligatorio per update");
+    	Utente u = repo.findById(form.getId())
+    			.orElseThrow(() -> new RuntimeException("Utente non trovato"));
+        u.setNome(form.getNome());
+        u.setCognome(form.getCognome());
+        u.setCodiceFiscale(form.getCodiceFiscale());
+        u.setDataNascita(form.getDataNascita());
+        u.setTelefono(form.getTelefono());
+        u.setIndirizzo(form.getIndirizzo());
+    	return DtoMapper.toUtenteDto(repo.save(u)); 
+    }
+    
+    @Transactional
+    public UtenteDto updateEmail(@Valid UtenteFormDto form) {
+    	String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    	Utente ut = repo.findByEmail(email)
+    			.orElseThrow(() -> new RuntimeException("Utente corrente non trovato"));
+    	if (ut.getId() != form.getId()) throw new RuntimeException("L'utente non è il proprietario dell'account");
+    	if (form.getId() == null) throw new RuntimeException("Id utente obbligatorio per update");
+    	Utente u = repo.findById(form.getId())
+    			.orElseThrow(() -> new RuntimeException("Utente non trovato"));
+    	u.setEmail(form.getEmail());
+    	return DtoMapper.toUtenteDto(repo.save(u));
+    }
+    
+    @Transactional
+    public UtenteDto updatePassword(@Valid UtenteFormDto form, boolean encodePasswordAlways) {
+    	String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    	Utente ut = repo.findByEmail(email)
+    			.orElseThrow(() -> new RuntimeException("Utente corrente non trovato"));
+    	if (ut.getId() != form.getId()) throw new RuntimeException("L'utente non è il proprietario dell'account");
+    	if (form.getId() == null) throw new RuntimeException("Id utente obbligatorio per update");
+    	Utente u = repo.findById(form.getId())
+    			.orElseThrow(() -> new RuntimeException("Utente non trovato"));
+        if (encodePasswordAlways || (form.getPassword() != null && !form.getPassword().isBlank())) {
+            u.setPassword(encoder.encode(form.getPassword()));
+        }
+    	return DtoMapper.toUtenteDto(repo.save(u));
+    }
+    
     /** Copia campi dal form, gestendo password e ruolo. */
     private void apply(Utente u, UtenteFormDto form, boolean encodePasswordAlways) {
         u.setNome(form.getNome());
@@ -116,4 +165,5 @@ public class UtenteService {
                 .orElseThrow(() -> new RuntimeException("Ruolo non trovato"));
         u.setRuolo(ruolo);
     }
+
 }

@@ -87,10 +87,24 @@ public class UtenteController {
     
     @PutMapping
     @PreAuthorize("hasAuthority('UTENTE_UPDATE_PROFILE')")
-    public ResponseEntity<UtenteDto> updateProfile(@Valid @RequestBody UtenteFormDto form){
-    	var updated = service.updateProfile(form);
+    public ResponseEntity<UtenteDto> updateMyProfile(@Valid @RequestBody UtenteFormDto form){
+    	var updated = service.updateMyProfile(form);
     	return ResponseEntity.status(201).body(updated);
     }
+    
+    @PutMapping
+    @PreAuthorize("hasAuthority('UTENTE_UPDATE_PROFILE')")
+	public ResponseEntity<UtenteDto> updateEmail(@Valid @RequestBody UtenteFormDto form){
+		var updated = service.updateEmail(form);
+		return ResponseEntity.status(201).body(updated);
+	}
+    @PutMapping
+    @PreAuthorize("hasAuthority('UTENTE_UPDATE_PROFILE')")
+	public ResponseEntity<UtenteDto> updatePassword(@Valid @RequestBody UtenteFormDto form){
+		var updated = service.updatePassword(form, true);
+		return ResponseEntity.status(201).body(updated);
+	}
+
     
     //si potrebbe fare una nuova entità con il numero di like
     //cambiare email, cambiare passwrod, updatemyprofile
