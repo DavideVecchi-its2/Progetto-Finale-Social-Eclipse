@@ -56,10 +56,10 @@ public class UtenteController {
     //Sospendi utente
     
     /** Dettaglio utente. */
-    @GetMapping("/{id}")
+    @GetMapping("/byId")
     @PreAuthorize("hasAuthority('UTENTE_READ')")
-    public ResponseEntity<UtenteDto> getById(@PathVariable Long id) {
-    	var dto = service.getById(id);
+    public ResponseEntity<UtenteDto> getById(@Valid @RequestBody IdRequest req) {
+    	var dto = service.getById(req.getId());
     	return (dto == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok(dto);
     }
 
@@ -85,5 +85,13 @@ public class UtenteController {
     	return (dto == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok(dto);
     }
     
+    @PutMapping
+    @PreAuthorize("hasAuthority('UTENTE_UPDATE_PROFILE')")
+    public ResponseEntity<UtenteDto> updateProfile(@Valid @RequestBody UtenteFormDto form){
+    	var updated = service.updateProfile(form);
+    	return ResponseEntity.status(201).body(updated);
+    }
+    
     //si potrebbe fare una nuova entità con il numero di like
+    //cambiare email, cambiare passwrod, updatemyprofile
 }

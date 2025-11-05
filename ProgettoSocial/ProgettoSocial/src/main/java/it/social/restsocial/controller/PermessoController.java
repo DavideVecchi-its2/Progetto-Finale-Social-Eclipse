@@ -48,10 +48,10 @@ public class PermessoController {
     }
 
     /** Dettaglio permesso. */
-    @GetMapping("/{id}")
+    @GetMapping("/dettaglio")
     @PreAuthorize("hasAuthority('PERMESSO_READ')")
-    public ResponseEntity<PermessoDto> get(@PathVariable Long id) {
-    	var dto = service.getById(id);
+    public ResponseEntity<PermessoDto> get(@Valid @RequestBody IdRequest req) {
+    	var dto = service.getById(req.getId());
         return (dto == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok(dto);
     }
 

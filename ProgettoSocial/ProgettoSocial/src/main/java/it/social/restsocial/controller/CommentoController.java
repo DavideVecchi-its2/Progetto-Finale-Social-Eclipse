@@ -73,7 +73,7 @@ public class CommentoController {
 		 return service.allMyCommenti(pageable); 
 	 }
 	 
-	 @GetMapping("/id")
+	 @GetMapping("/byId")
 	 @PreAuthorize("hasAuthority('COMMENTO_READ')")
 	 public ResponseEntity<CommentoDto> commentoById(@RequestBody IdRequest req) {
 		 var dto = service.commentoById(req.getId());

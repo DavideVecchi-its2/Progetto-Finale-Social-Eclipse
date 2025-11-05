@@ -63,10 +63,10 @@ public class PostController {
 		 return service.listAll(pageable);
 	 }
 	 
-	 @GetMapping("/{id}/utente")
+	 @GetMapping("/utente")
 	 @PreAuthorize("hasAuthority('POST_READ')")
-	 public PageResponse<PostDto> allPostByUtente(@Valid @PathVariable("id") Long utenteId, Pageable pageable){ //Request 
-		 return service.allPostByUtente(utenteId, pageable); 
+	 public PageResponse<PostDto> allPostByUtente(@Valid @RequestBody IdRequest req, Pageable pageable){ //Request 
+		 return service.allPostByUtente(req.getId(), pageable); 
 	 }
 	 @GetMapping("/miei")
 	 @PreAuthorize("hasAuthority('POST_READ')")
@@ -74,10 +74,10 @@ public class PostController {
 		 return service.allMyPost(pageable); 
 	 }
 	 
-	 @GetMapping("/{id}")
+	 @GetMapping("/byId")
 	 @PreAuthorize("hasAuthority('POST_READ')")
-	 public ResponseEntity<PostDto> getById(@PathVariable Long id) {
-		 var dto = service.getById(id);
+	 public ResponseEntity<PostDto> getById(@Valid @RequestBody IdRequest req) {
+		 var dto = service.getById(req.getId());
 		 return (dto == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok(dto);
 	 }
 	 
