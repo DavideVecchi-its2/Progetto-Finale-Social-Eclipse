@@ -17,6 +17,7 @@ public class PostFormDto {
     @NotBlank(message = "Il contenuto non può essere vuoto")
 	private String contenuto;
 
+    private String immagine;
 	public PostFormDto() {}
 	
 	public PostFormDto(Long id, UtenteDto utente, LocalDateTime dataOra, String contenuto) {
@@ -57,6 +58,14 @@ public class PostFormDto {
 
 	public void setContenuto(String contenuto) {
 		this.contenuto = contenuto;
+	}
+
+	public String getImmagine() {
+		return immagine;
+	}
+
+	public void setImmagine(String immagine) {
+		this.immagine = immagine;
 	}
 	
 	

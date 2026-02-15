@@ -56,7 +56,7 @@ public class CommentoController {
 		 return ResponseEntity.noContent().build();
 	 }
 	 
-	 @GetMapping
+	 @PostMapping("/by-post")
 	 @PreAuthorize("hasAuthority('COMMENTO_READ')")
 	 public PageResponse<CommentoDto> allCommentiByPost(@RequestBody IdRequest req, Pageable pageable){  //Post o id?
 		 return service.allCommentiByPost(req.getId(), pageable);

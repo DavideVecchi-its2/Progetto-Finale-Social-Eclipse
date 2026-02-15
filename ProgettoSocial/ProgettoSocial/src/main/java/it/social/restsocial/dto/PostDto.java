@@ -10,6 +10,8 @@ public class PostDto {
 	private UtenteDto utente;
 	private LocalDateTime dataOra;
 	private String contenuto;
+	private String immagine;
+	private int likeCount;
     private Instant createdAt;
     private Instant updatedAt;
     private List<CommentoDto> commenti;
@@ -75,6 +77,22 @@ public class PostDto {
 	}
 	public void setLike(List<LikeDto> like) {
 		this.like = like;
+	}
+
+	public String getImmagine() {
+		return immagine;
+	}
+
+	public void setImmagine(String immagine) {
+		this.immagine = immagine;
+	}
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}
 	
     

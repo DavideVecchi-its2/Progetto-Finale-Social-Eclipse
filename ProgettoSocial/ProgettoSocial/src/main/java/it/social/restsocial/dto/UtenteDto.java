@@ -1,5 +1,4 @@
 package it.social.restsocial.dto;
-
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
@@ -14,6 +13,7 @@ public class UtenteDto {
     private LocalDate dataNascita;
     private String telefono;
     private String indirizzo;
+    private String avatar;
     private RuoloDto ruolo;
     private List<PostDto> post;
     private List<CommentoDto> commenti;
@@ -60,6 +60,12 @@ public class UtenteDto {
 	}
 	public void setLike(List<LikeDto> like) {
 		this.like = like;
+	}
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
     
 }
