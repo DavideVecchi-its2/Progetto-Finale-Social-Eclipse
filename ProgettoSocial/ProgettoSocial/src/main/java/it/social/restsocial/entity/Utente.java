@@ -36,6 +36,10 @@ public class Utente {
 
     private String telefono;
     private String indirizzo;
+    private String avatar;
+    //Se non vogliamo fare le domande di sicurezza si usa il token
+    //private String token; token momentaneo da verficare
+    //private String scadenza; Scadenza del token
 
     /** Ruolo assegnato all'utente. */
     @ManyToOne
@@ -101,6 +105,12 @@ public class Utente {
 	}
 	public void setLike(List<Like> like) {
 		this.like = like;
+	}
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 	
 }

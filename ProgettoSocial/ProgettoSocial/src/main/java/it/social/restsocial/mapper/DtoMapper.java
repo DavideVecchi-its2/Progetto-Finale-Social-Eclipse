@@ -157,6 +157,7 @@ public class DtoMapper {
         dto.setDataNascita(u.getDataNascita());
         dto.setTelefono(u.getTelefono());
         dto.setIndirizzo(u.getIndirizzo());
+        dto.setAvatar(u.getAvatar());
         dto.setRuolo(toRuoloDtoLight(u.getRuolo())); // ruolo light
         dto.setCreatedAt(u.getCreatedAt());
         dto.setUpdatedAt(u.getUpdatedAt());
@@ -173,6 +174,7 @@ public class DtoMapper {
         dto.setDataNascita(u.getDataNascita());
         dto.setTelefono(u.getTelefono());
         dto.setIndirizzo(u.getIndirizzo());
+        dto.setAvatar(u.getAvatar());
         dto.setCreatedAt(u.getCreatedAt());
         dto.setUpdatedAt(u.getUpdatedAt());
         return dto;
@@ -188,6 +190,7 @@ public class DtoMapper {
         u.setDataNascita(dto.getDataNascita());
         u.setTelefono(dto.getTelefono());
         u.setIndirizzo(dto.getIndirizzo());
+        u.setAvatar(dto.getAvatar());
         u.setRuolo(toRuoloLight(dto.getRuolo())); // ruolo light
         u.setCreatedAt(dto.getCreatedAt());
         u.setUpdatedAt(dto.getUpdatedAt());
@@ -204,6 +207,7 @@ public class DtoMapper {
         u.setDataNascita(dto.getDataNascita());
         u.setTelefono(dto.getTelefono());
         u.setIndirizzo(dto.getIndirizzo());
+        u.setAvatar(dto.getAvatar());
         u.setCreatedAt(dto.getCreatedAt());
         u.setUpdatedAt(dto.getUpdatedAt());
         return u;
@@ -227,6 +231,8 @@ public class DtoMapper {
         p.setUtente(toUtenteLight(dto.getUtente()));
         p.setContenuto(dto.getContenuto());
         p.setDataOra(dto.getDataOra());
+        p.setImmagine(dto.getImmagine());
+        p.setLikeCount(dto.getLike().size());
         p.setCreatedAt(dto.getCreatedAt());
         p.setUpdatedAt(dto.getUpdatedAt());
         return p;
@@ -236,7 +242,9 @@ public class DtoMapper {
         Post p = new Post();
         p.setId(dto.getId());
         p.setContenuto(dto.getContenuto());
+        p.setImmagine(dto.getImmagine());
         p.setDataOra(dto.getDataOra());
+        p.setLikeCount(dto.getLike().size());
         p.setCreatedAt(dto.getCreatedAt());
         p.setUpdatedAt(dto.getUpdatedAt());
         return p;
@@ -246,9 +254,11 @@ public class DtoMapper {
         if (p == null) return null;
         PostDto dto = new PostDto();
         dto.setId(p.getId());
-        dto.setUtente(toUtenteDtoLight(p.getUtente()));
+        dto.setUtente(toUtenteDto(p.getUtente()));
         dto.setContenuto(p.getContenuto());
+        dto.setImmagine(p.getImmagine());
         dto.setDataOra(p.getDataOra());
+        dto.setLikeCount(p.getLike().size());
         dto.setCreatedAt(p.getCreatedAt());
         dto.setUpdatedAt(p.getUpdatedAt());
         return dto;
@@ -259,7 +269,9 @@ public class DtoMapper {
         PostDto dto = new PostDto();
         dto.setId(p.getId());
         dto.setContenuto(p.getContenuto());
+        dto.setImmagine(p.getImmagine());
         dto.setDataOra(p.getDataOra());
+        dto.setLikeCount(p.getLike().size());
         dto.setCreatedAt(p.getCreatedAt());
         dto.setUpdatedAt(p.getUpdatedAt());
         return dto;

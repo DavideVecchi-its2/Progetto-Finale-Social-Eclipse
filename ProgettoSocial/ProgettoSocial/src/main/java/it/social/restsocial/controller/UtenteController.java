@@ -104,8 +104,6 @@ public class UtenteController {
 		var updated = service.updatePassword(form, true);
 		return ResponseEntity.status(201).body(updated);
 	}
-
     
     //si potrebbe fare una nuova entità con il numero di like
-    //cambiare email, cambiare passwrod, updatemyprofile
 }

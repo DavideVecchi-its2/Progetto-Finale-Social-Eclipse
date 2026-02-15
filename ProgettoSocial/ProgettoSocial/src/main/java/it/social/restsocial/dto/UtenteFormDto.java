@@ -1,5 +1,4 @@
 package it.social.restsocial.dto;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -31,6 +30,7 @@ public class UtenteFormDto {
 
     private String telefono;
     private String indirizzo;
+    private String avatar;
     
     @NotNull(message = "Il ruolo è obbligatorio")
     private RuoloDto ruolo;
@@ -56,4 +56,10 @@ public class UtenteFormDto {
     public void setIndirizzo(String indirizzo) { this.indirizzo = indirizzo; }
 	public RuoloDto getRuolo() {return ruolo;}
 	public void setRuolo(RuoloDto ruolo) {this.ruolo = ruolo;}
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
 }
