@@ -85,20 +85,20 @@ public class UtenteController {
     	return (dto == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok(dto);
     }
     
-    @PutMapping("/ut")
+    @PutMapping("/update")
     @PreAuthorize("hasAuthority('UTENTE_UPDATE_PROFILE')")
     public ResponseEntity<UtenteDto> updateMyProfile(@Valid @RequestBody UtenteFormDto form){
     	var updated = service.updateMyProfile(form);
     	return ResponseEntity.status(201).body(updated);
     }
     
-    @PutMapping("/u1t")
+    @PutMapping("/email")
     @PreAuthorize("hasAuthority('UTENTE_UPDATE_PROFILE')")
 	public ResponseEntity<UtenteDto> updateEmail(@Valid @RequestBody UtenteFormDto form){
 		var updated = service.updateEmail(form);
 		return ResponseEntity.status(201).body(updated);
 	}
-    @PutMapping("/ut2")
+    @PutMapping("/password")
     @PreAuthorize("hasAuthority('UTENTE_UPDATE_PROFILE')")
 	public ResponseEntity<UtenteDto> updatePassword(@Valid @RequestBody UtenteFormDto form){
 		var updated = service.updatePassword(form, true);
